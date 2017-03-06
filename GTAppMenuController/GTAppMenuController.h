@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+FOUNDATION_EXPORT NSString *const GTAppMenuControllerPanGestureNotification;
+FOUNDATION_EXPORT NSString *const GTAppMenuControllerOpenedNotification;
+FOUNDATION_EXPORT NSString *const GTAppMenuControllerClosedNotification;
+
 @interface GTAppMenuController : UINavigationController
 
 @property (nonatomic, assign) CGFloat duration;

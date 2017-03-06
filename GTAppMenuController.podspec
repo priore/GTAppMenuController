@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name                  = 'GTAppMenuController'
-    s.version               = '1.1.1'
+    s.version               = '1.1.2'
     s.summary               = 'Inspired by Paper application of Facebook.'
     s.license               = 'MIT'
     s.authors               = { 'Gianluca Tursi' => 'gian.tursi@gmail.com' }

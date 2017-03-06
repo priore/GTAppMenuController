@@ -8,6 +8,9 @@
 
 #import "GTAppMenuController.h"
 
+NSString *const GTAppMenuControllerPanGestureNotification   = @"GTAppMenuControllerPanGestureNotification";
+NSString *const GTAppMenuControllerOpenedNotification       = @"GTAppMenuControllerOpenedNotification";
+NSString *const GTAppMenuControllerClosedNotification       = @"GTAppMenuControllerClosedNotification";
 
 @interface GTAppMenuController ()
 @property (strong, nonatomic) UIPanGestureRecognizer *panGesture;
@@ -67,7 +70,14 @@ static UIWindow *backWindow;
     frontWindow.layer.shadowOffset = CGSizeMake(0,0);
     frontWindow.layer.shadowColor = [UIColor blackColor].CGColor;
     frontWindow.layer.shadowOpacity = .9f;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(panGestureNotification:) name:GTAppMenuControllerPanGestureNotification object:nil];
 
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 -(void)activateSwipeToOpenMenu:(BOOL)onlyNavigation{
@@ -157,7 +167,13 @@ static UIWindow *backWindow;
                                  frontWindow.frame = f;
                                  frontWindow.rootViewController.view.transform = trasnform;
                                  
-                             } completion:nil];
+                             } completion:^(BOOL finished) {
+                                 if (CGAffineTransformIsIdentity(frontWindow.rootViewController.view.transform)) {
+                                     [[NSNotificationCenter defaultCenter] postNotificationName:GTAppMenuControllerClosedNotification object:self];
+                                 } else {
+                                     [[NSNotificationCenter defaultCenter] postNotificationName:GTAppMenuControllerOpenedNotification object:self];
+                                 }
+                             }];
             
         }
             break;
@@ -165,6 +181,11 @@ static UIWindow *backWindow;
         default:
             break;
     }
+}
+
+- (void)panGestureNotification:(NSNotification*)note
+{
+    [self onPan:note.object];
 }
 
 @end
