@@ -7,8 +7,6 @@
 //
 
 #import "GTAppDelegate.h"
-#import "GTFrontViewController.h"
-#import "GTBackViewController.h"
 #import "GTAppMenuController.h"
 
 @implementation GTAppDelegate

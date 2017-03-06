@@ -7,7 +7,6 @@
 //
 
 #import "GTAppMenuController.h"
-#import "GTAppDelegate.h"
 
 
 @interface GTAppMenuController ()
