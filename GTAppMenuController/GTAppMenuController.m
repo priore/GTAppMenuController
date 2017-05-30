@@ -97,9 +97,12 @@ static UIWindow *backWindow;
     
     CGPoint finalOrigin;
     CGRect f = frontWindow.frame;
+    CGAffineTransform trasnform = CGAffineTransformIdentity;
     
-    if (f.origin.y == CGPointZero.y)
+    if (f.origin.y == CGPointZero.y) {
         finalOrigin.y = CGRectGetHeight([UIScreen mainScreen].bounds) - self.headerHeight;
+        trasnform = CGAffineTransformScale(CGAffineTransformIdentity, 0.9, 1.0);
+    }
     else
         finalOrigin.y = CGPointZero.y;
     
@@ -111,6 +114,7 @@ static UIWindow *backWindow;
                      animations:^{
                          frontWindow.transform = CGAffineTransformIdentity;
                          frontWindow.frame = f;
+                         frontWindow.rootViewController.view.transform = trasnform;
                          
                      } completion:nil];
     
