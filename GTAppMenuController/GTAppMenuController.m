@@ -116,7 +116,14 @@ static UIWindow *backWindow;
                          frontWindow.frame = f;
                          frontWindow.rootViewController.view.transform = trasnform;
                          
-                     } completion:nil];
+                     } completion:^(BOOL finished) {
+                         if (CGAffineTransformIsIdentity(frontWindow.rootViewController.view.transform)) {
+                             [[NSNotificationCenter defaultCenter] postNotificationName:GTAppMenuControllerClosedNotification object:self];
+                         } else {
+                             [[NSNotificationCenter defaultCenter] postNotificationName:GTAppMenuControllerOpenedNotification object:self];
+                         }
+                         
+                     }];
     
     
 }
